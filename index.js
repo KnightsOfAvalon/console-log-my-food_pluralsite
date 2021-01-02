@@ -92,7 +92,7 @@ readline.on('line', async line => {
           [Symbol.iterator]() {
             // Creates a variable that stores the current position
             // in the sequence of actions
-            const positions = [...this.actions];
+            let positions = [...this.actions];
 
             return {
               // Iterator returns itself
@@ -123,6 +123,22 @@ readline.on('line', async line => {
                   // array...
                   return { done: true };
                 }
+              },
+
+              // Returning the optional return() method
+              return () {
+                // Empty the positions array to prevent any more actions
+                // from being called
+                positions = [];
+                return { done: true }; // Iteration is now done 
+              },
+
+              // Returning the optional throw() method
+              throw (error) {
+                console.log(error); // Show error in console
+
+                // Iteration is now done
+                return { value: undefined, done: true };
               }
             }
           },
@@ -139,9 +155,15 @@ readline.on('line', async line => {
             // The question asked in the console
             `How many servings did you eat? (as a decimal: 1, 0.5, 1.25, etc...)`,
             // Callback method that will use the user's response as
-            // the "servingSize" parameter. The next iteration for the
-            // iterator will begin.
+            // the "servingSize" parameter.
             servingSize => {
+              // If user says nevermind...
+              if (servingSize === 'nevermind' || servingSize === 'n') {
+                //...then the return() method will be called
+                actionIt.return();
+              }
+
+              // The next iteration for the iterator will begin
               actionIt.next(servingSize, food)
             }
           )
@@ -150,8 +172,8 @@ readline.on('line', async line => {
         // Declaring the second function in the iterator's action array.
         // This function will calculate and display the calorie count
         // based on the food item and the servingSize provided by the
-        // user.
-        function displayCalories(servingSize, food) {
+        // user. It also saves the user's info to the database.
+        async function displayCalories(servingSize, food) {
           // Creates a variable that holds the calorie count for the
           // food item that is passed in
           const calories = food.calories;
@@ -160,6 +182,39 @@ readline.on('line', async line => {
           console.log(
             `${food.name} with a serving size of ${servingSize} has ${Number.parseFloat(calories * parseFloat(servingSize, 10)).toFixed()} calories.`
           );
+
+          // Retrieves user's data from the database
+          const { data } = await axios.get('http://localhost:3001/users/1');
+
+          // Saves user's data log to a variable. If the log is undefined
+          // (empty), then usersLog will be set equal to an empty array.
+          const usersLog = data.log || [];
+
+          // Constructs the new object that holds the user's updated
+          // data and saves it to a variable.
+          const putBody = {
+            ...data,
+            log: [
+              ...usersLog,
+              {
+                [Date.now()]: {
+                  food: food.name,
+                  servingSize,
+                  calories: Number.parseFloat(
+                    calories * parseFloat(servingSize, 10),
+                  )
+                }
+              }
+            ]
+          };
+
+          // Creates an axios put command and transfers the new
+          // user data to the database.
+          await axios.put('http://localhost:3001/users/1', putBody, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
 
           // Calls the next() method. The next iteration will begin.
           actionIt.next();
