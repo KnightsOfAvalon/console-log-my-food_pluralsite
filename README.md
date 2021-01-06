@@ -20,6 +20,8 @@ node ./indexUsingGen.js
 ## Valid commands to use in the application:
 
 log - Allows you to make new food log entries. You must enter food eaten followed by the serving size after this command.  
+  
 list vegan foods - Lists all the vegan foods that are recognized by the database.  
+  
 today's log - Lists all log entries for the current day. You must enter the default email (sam@acme.com) after this command. (NOTE: This command is only valid in the updated program. Follow the alternative Step 2 to have access to this command.)
 
