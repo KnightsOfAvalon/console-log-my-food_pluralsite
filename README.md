@@ -1,4 +1,4 @@
-# HOW TO USE THIS APP
+# HOW TO USE THIS APP:
 
 # Step 1
 
@@ -10,12 +10,16 @@ npx json-server --watch ./db.json --port 3001
 In another terminal, run the following command to run the program:  
 node ./index.js
 
-## OR
+## OR (alternative Step 2)
 
 In another terminal, run the following command to run the updated program with additional features:  
 node ./indexUsingGen.js
 
+# Step 3
 
+## Valid commands to use in the application:
 
-# console-log-my-food_pluralsite
-Simple JS app that logs responses to the console based on user input to the terminal
+log - Allows you to make new food log entries. You must enter food eaten followed by the serving size after this command.  
+list vegan foods - Lists all the vegan foods that are recognized by the database.  
+today's log - Lists all log entries for the current day. You must enter the default email (sam@acme.com) after this command.
+
