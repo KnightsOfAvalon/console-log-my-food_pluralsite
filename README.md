@@ -12,7 +12,7 @@ node ./index.js
 
 ## OR
 
-In another terminal, run the following command to run the updated program with additional features:
+In another terminal, run the following command to run the updated program with additional features:  
 node ./indexUsingGen.js
 
 
