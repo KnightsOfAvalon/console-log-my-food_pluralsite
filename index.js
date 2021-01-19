@@ -1,4 +1,4 @@
-'use strict';
+
 // The comment above let's the computer know that we want to
 // execute this file with node
 
