@@ -3,7 +3,7 @@
 # Step 1
 
 After cloning, make sure you start the json server by running the following command in the terminal:  
-npx json-server --watch ./db.json --port 3001
+npx json-server --watch ./db.json --port 3000
 
 # Step 2
 
