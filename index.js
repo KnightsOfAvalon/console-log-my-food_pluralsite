@@ -1,4 +1,4 @@
-#! /usr/bin/env node
+
 // The comment above let's the computer know that we want to
 // execute this file with node
 
@@ -21,7 +21,7 @@ readline.on('line', async line => {
       { /** Start of 'list vegan foods' case **/
         // This will make an API call to the database, then use
         // the retrieved data as a parameter in the then method
-        axios.get('http://localhost:3001/food').then(({data}) => {
+        axios.get('http://localhost:3000/food').then(({data}) => {
           let idx = 0; // Creates a variable that holds an index
           // Creates a filtered array from the array that was retrieved
           // from the database and saves it in the "veganOnly" variable
@@ -78,7 +78,7 @@ readline.on('line', async line => {
       { /** Start of 'log' case **/
         // Destructures the response from the json server and stores
         // just the data in a variable
-        const { data } = await axios.get("http://localhost:3001/food");
+        const { data } = await axios.get("http://localhost:3000/food");
 
         // Initializes an iterator for the data object
         const it = data[Symbol.iterator]();
@@ -184,7 +184,7 @@ readline.on('line', async line => {
           );
 
           // Retrieves user's data from the database
-          const { data } = await axios.get('http://localhost:3001/users/1');
+          const { data } = await axios.get('http://localhost:3000/users/1');
 
           // Saves user's data log to a variable. If the log is undefined
           // (empty), then usersLog will be set equal to an empty array.
@@ -210,7 +210,7 @@ readline.on('line', async line => {
 
           // Creates an axios put command and transfers the new
           // user data to the database.
-          await axios.put('http://localhost:3001/users/1', putBody, {
+          await axios.put('http://localhost:3000/users/1', putBody, {
             headers: {
               'Content-Type': 'application/json'
             }

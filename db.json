@@ -192,6 +192,13 @@
             "servingSize": "10",
             "calories": 5000
           }
+        },
+        {
+          "1611069902175": {
+            "food": "oreos",
+            "servingSize": "1.25",
+            "calories": 287.5
+          }
         }
       ]
     }

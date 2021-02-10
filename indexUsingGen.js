@@ -24,7 +24,7 @@ readline.on('line', async line => {
       { /** Start of 'list vegan foods' case **/
         // This will make an API call to the database, then save
         // the retrieved data to a variable
-        const { data } = await axios.get('http://localhost:3001/food');
+        const { data } = await axios.get('http://localhost:3000/food');
         
         // Declaring the generator function
         function * listVeganFoods() {
@@ -70,7 +70,7 @@ readline.on('line', async line => {
       { /** Start of 'log' case **/
         // Destructures the response from the json server and stores
         // just the data in a variable
-        const { data } = await axios.get("http://localhost:3001/food");
+        const { data } = await axios.get("http://localhost:3000/food");
 
         // Initializes an iterator for the data object
         const it = data[Symbol.iterator]();
@@ -145,7 +145,7 @@ readline.on('line', async line => {
           );
 
           // Retrieves user's data from the database
-          const { data } = await axios.get('http://localhost:3001/users/1');
+          const { data } = await axios.get('http://localhost:3000/users/1');
 
           // Saves user's data log to a variable. If the log is undefined
           // (empty), then usersLog will be set equal to an empty array.
@@ -171,7 +171,7 @@ readline.on('line', async line => {
 
           // Creates an axios put command and transfers the new
           // user data to the database.
-          await axios.put('http://localhost:3001/users/1', putBody, {
+          await axios.put('http://localhost:3000/users/1', putBody, {
             headers: {
               'Content-Type': 'application/json'
             }
@@ -231,7 +231,7 @@ readline.on('line', async line => {
           // Retrieves the user data for a specific user and
           // saves it to a variable
           const { data } = await axios.get(
-            `http://localhost:3001/users?email=${emailAddress}`
+            `http://localhost:3000/users?email=${emailAddress}`
           );
 
           // Saves just the log portion of the selected user's data
